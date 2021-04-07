@@ -1,0 +1,12 @@
+#body_bg_img {
+    text-align: center;
+    background-image: url("bg1.jpg");
+    background-position: center;
+    background-attachment: fixed;
+    background-size: cover;
+}
+#canva {
+    background-color: white;
+    border: 10px ridge white;
+    margin-top: 20px;
+}

@@ -1,0 +1,83 @@
+<html>
+    <head>
+        <link rel="stylesheet" href="style.css">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    </head>
+    <body id="body_bg_img">
+        <div class="container">
+            <canvas id="canva" width="600" height="350"></canvas>
+            <br><br>
+            <span>Select the color from here.</span>
+            <br><br>
+            <input type="color" id="color_pal">
+            <br><br>
+            <span>Select the width from here : </span>
+            <select id="arc_width">
+                <option>1</option>
+                <option>2</option>
+                <option>3</option>
+                <option>5</option>
+                <option>7</option>
+            </select>
+            <br><br>
+            <select id="radi">
+                <option>10</option>
+                <option>20</option>
+                <option>30</option>
+                <option>40</option>
+                <option>50</option>
+            </select>
+            <br><br>
+            <button type="button" class="btn btn-primary" onclick="ctx.clearRect(0, 0, 600, 350)">Clear</button>
+        </div>
+        <script>
+            canvas = document.getElementById("canva");
+            ctx = canvas.getContext("2d");
+            var mouseEvent = "empty";
+            var color = document.getElementById("color_pal").value;
+            var width_of_pen = document.getElementById("arc_width").value;
+            var radius = document.getElementById("radi").value;
+
+            canvas.addEventListener("mousedown", mymousedown);
+
+            function mymousedown() {
+                mouseEvent = "mouseDown";
+                color = document.getElementById("color_pal").value;
+                width_of_pen = document.getElementById("line_width").value;
+            }
+
+            canvas.addEventListener("mousemove", mymousemove);
+
+            function mymousemove(event) {
+                var current_postion_of_mouse_x = event.clientX - canvas.offsetLeft;
+                var current_postion_of_mouse_y = event.clientY - canvas.offsetTop;
+                if(mouseEvent == "mouseDown") {
+                    ctx.beginPath();
+                    ctx.strokeStyle = color;
+                    ctx.lineWidth = width_of_pen;
+
+                    console.log("current postion was: ")
+                    console.log(current_postion_of_mouse_x);
+                    console.log(", ");
+                    console.log(current_postion_of_mouse_y);
+
+                    ctx.arc(current_postion_of_mouse_x, current_postion_of_mouse_y, radius, 0, 2 * Math.PI);
+
+                    ctx.stroke();
+                }
+            }
+            canvas.addEventListener("mouseup", mymouseup);
+
+            function mymouseup() {
+                mouseEvent = "mouseUp"; 
+            }
+            canvas.addEventListener("mouseleave", mymouseleave);
+
+            function mymouseleave() {
+                mouseEvent = "mouseLeave"; 
+            }
+        </script>
+    </body>
+</html>
